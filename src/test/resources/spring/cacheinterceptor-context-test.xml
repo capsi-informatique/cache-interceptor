@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="cacheMethodInterceptor"
+		class="fr.rci.tools.cache.EhcacheMethodCacheInterceptor" init-method="init">
+		<property name="cacheManager" ref="cacheManager" />
+		<!-- Au choix : reference ou serialisation  -->
+		<property name="cacheValueStrategy" value="serialisation" />
+		<!-- Au choix : by-method, by-service ou shared  -->
+		<property name="cacheStrategy" value="shared" />
+		<property name="sharedCacheName" value="testCache" />
+		<property name="useFirstInterfaceAsName" value="true" />
+		<!-- Au choix : single ou double  -->
+		<property name="cacheType" value="double-async" />
+<!--  
+		<property name="permanentCacheName" value="permanentDiskCache" />
+-->
+		<property name="cacheNullValues" value="true" />
+	</bean>
+
+	<bean id="cacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache_test.xml" />
+		<property name="cacheManagerName" value="testCacheManager" />
+	</bean>
+
+
+	<bean id="simpleTestService"
+		class="fr.rci.tools.cache.test.SimpleTestServiceImpl">
+	</bean>
+
+	<aop:config>
+		<aop:pointcut id="cachePointCut"
+			expression="execution(* fr.rci.tools.cache.test.SimpleTestService.getCallCount(..)) || execution(* fr.rci.tools.cache.test.SimpleTestService.getLargeValue(..))" />
+
+		<aop:advisor id="cacheAdvisor" advice-ref="cacheMethodInterceptor"
+			pointcut-ref="cachePointCut" />
+
+	</aop:config>
+</beans>
+

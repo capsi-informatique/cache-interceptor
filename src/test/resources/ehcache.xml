@@ -1,0 +1,35 @@
+<ehcache>
+    <diskStore path="java.io.tmpdir/test"/>
+
+    <cache
+      name="testCache"
+      maxElementsInMemory="10"
+      eternal="false"
+      timeToIdleSeconds="5"
+      timeToLiveSeconds="5"
+      overflowToDisk="false"
+      />
+
+    <cache
+      name="testCache-perm"
+      maxElementsInMemory="100"
+      eternal="true"
+      overflowToDisk="true"
+      diskPersistent="true"
+     />
+
+    <!--
+    Mandatory Default Cache configuration. These settings will be applied to caches
+    created programmtically using CacheManager.add(String cacheName)
+    -->
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            overflowToDisk="false"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU"
+            />
+</ehcache>

@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+ fr.rci.tools.cache.spring.CacheConfigurator
+ 
