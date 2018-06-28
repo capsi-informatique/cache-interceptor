@@ -28,9 +28,11 @@ import java.util.concurrent.Executors;
 import javax.annotation.PostConstruct;
 import javax.management.MBeanServer;
 
+import org.aopalliance.aop.Advice;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.aop.Advisor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -49,7 +51,7 @@ import net.sf.ehcache.management.ManagementService;
 @Component
 @Aspect
 @Slf4j
-public class EhcacheMethodCacheInterceptor  {
+public class EhcacheMethodCacheInterceptor{
 
     @Autowired
     private CacheInterceptorConfiguration config ;

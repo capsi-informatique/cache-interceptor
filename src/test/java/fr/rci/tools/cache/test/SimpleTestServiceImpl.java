@@ -60,7 +60,7 @@ public class SimpleTestServiceImpl implements SimpleTestService {
     }
 
 	@Override
-    @Cached
+//    @Cached
 	public void getCallCount(String etiquette) {
 		getCallCountNoCache(etiquette, 1);
 	}

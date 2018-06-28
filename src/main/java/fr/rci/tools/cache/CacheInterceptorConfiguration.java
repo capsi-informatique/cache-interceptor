@@ -43,5 +43,5 @@ public class CacheInterceptorConfiguration {
 	private int maxCacheableSize= DEFAULT_MAX_CACHEABLE_SIZE;
 	private int maxInmemoryCacheableSize = DEFAULT_IN_MEMORY_MAX_CACHEABLE_SIZE;
 	private int asynchThreadCount = DEFAULT_ASYNC_THREAD_COUNT;
-
+	private String additionnalPointcut ;
 }
